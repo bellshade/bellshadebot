@@ -1,0 +1,26 @@
+*.DS_Store
+
+# Editors
+.vscode/
+.idea/
+
+# Tests
+.pytest_cache/
+.mypy_cache/
+__pycache__/
+
+# Local stuff
+local/
+.env
+
+# Environments
+env/
+venv/
+
+# Coverage
+.coverage
+coverage.xml
+htmlcov/
+
+# pyenv
+.python-version
