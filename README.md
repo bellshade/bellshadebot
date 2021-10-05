@@ -1,2 +1,2 @@
 # bellshadebot
-bot untuk review semua repositori
+bot untuk review repositori
