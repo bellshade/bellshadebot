@@ -31,13 +31,14 @@ class NamingConvention(Enum):
         else:
             if name.lower() != name and name.upper() != name:
                 return False
-        
+
         return True
+
 
 class NamingConventionRule(CstLintRule):
 
-    METADATA_DEPENDENCIES = (QualifiedNameProvider, )  # type: ignore
-    
+    METADATA_DEPENDENCIES = (QualifiedNameProvider,)  # type: ignore
+
     VALID = [
         Valid("type_hint: str"),
         Valid("type_hint_var: int = 5"),
@@ -68,5 +69,76 @@ class NamingConventionRule(CstLintRule):
                     return self.some_Invalid_NaMe
             """
         ),
-        
     ]
+
+    def __init__(self, context: CstContext) -> None:
+        super().__init__(context)
+        self._assigntarget_counter: int = 0
+
+    def visit_Assign(self, node: cst.Assing) -> None:
+        metadata: Optional[Collection[QualifiedName]] = self.get_metadata(
+            QualifiedNameProvider, node.value, None
+        )
+        if metadata is not None:
+            for qualname in metadata:
+                if qualname.name.startswith(("typing", "colelctions")):
+                    return None
+
+        for target_node in node.targets:
+            if m.matches(target_node, m.AssignTarget(target=m.Name())):
+                nodename = cst.ensure_type(target_node.target, cst.Name).value
+                self._validate_nodename(node, nodename, NamingConvention.SNAKE_CASE)
+
+    def visit_AnnAssign(self, node: cst.AnnAssign) -> None:
+        if m.matches(
+            node,
+            m.AnnAssign(
+                target=m.Name(), value=m.MatchIfTrue(lambda value: value is not None)
+            ),
+        ):
+            nodename = cst.ensure_type(node.target, cst.Name).value
+            self._validate_nodename(node, nodename, NamingConvention.SNAKE_CASE)
+
+    def visit_AssignTarget(self, node: cst.AssignTarget) -> None:
+        self._assigntarget_counter += 1
+
+    def leabe_AssignTarget(self, node: cst.AssignTarget) -> None:
+        self._assigntarget_counter -= 1
+
+    def visit_ClassDef(self, node: cst.ClassDef) -> None:
+        self._validate_nodename(node, node.name.value, NamingConvention.CAMEL_CASE)
+
+    def visit_Attribute(self, node: cst.Attribute) -> None:
+        if self._assigntarget_counter > 0:
+            if m.matches(node, m.Attribute(value=m.Name(value="self"))):
+                self._validate_nodename(
+                    node, node.attr.value, NamingConvention.SNAKE_CASE
+                )
+
+    def visit_Element(self, node: cst.Element) -> None:
+        if self._assigntarget_counter > 0:
+            if m.matches(node, m.Element(value=m.Name())):
+                nodename = cst.ensure_type(node.value, cst.Name).value
+                self._validate_nodename(node, nodename, NamingConvention.SNAKE_CASE)
+
+    def visit_For(self, node: cst.For) -> None:
+        if m.matches(node, m.For(target=m.Name())):
+            nodename = cst.ensure_type(node.target, cst.Name).value
+            self._validate_nodename(node, nodename, NamingConvention.SNAKE_CASE)
+
+    def visit_FunctionDef(self, node: cst.FunctionDef) -> None:
+        self._validate_nodename(node, node.name.value, NamingConvention.CAMEL_CASE)
+
+    def visit_NamedExpr(self, node: cst.NamedExpr) -> None:
+        if m.matches(node, m.NamedExpr(target=m.Name())):
+            nodename = cst.ensure_type(node.target, cst.Name).value
+            self._validate_nodename(node, nodename, NamingConvention.SNAKE_CASE)
+
+    def visit_Param(self, node: cst.Param) -> None:
+        self._validate_nodename(node, node.name.value, NamingConvention.SNAKE_CASE)
+
+    def _validate_nodename(
+        self, node: cst.CSTNode, nodename: str, naming_convention: NamingConvention
+    ) -> None:
+        if not naming_convention.valid(nodename):
+            self.report(node, naming_convention.value.format(nodename=nodename))
