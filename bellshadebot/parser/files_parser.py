@@ -39,7 +39,7 @@ class BaseFilesParser:
                 invalid_filepath.append(file.name)
         invalid_files = ", ".join(invalid_filepath)
         if invalid_files:
-            logger.info("invalid file(s) [%s]: %s", invalid_files, sle.pr_html_url)
+            logger.info("invalid file(s) [%s]: %s", invalid_files, self.pr_html_url)
 
         return invalid_files
 

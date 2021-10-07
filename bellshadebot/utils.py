@@ -6,9 +6,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Mapping, Optional, Union
 
-from _typeshed import StrPath
-from typing_extensions import Annotated
-
 from bellshadebot.api import GitHubAPI
 from bellshadebot.constant import PR_REVIEW_BODY
 
