@@ -64,7 +64,7 @@ class NamingConventionRule(CstLintRule):
                     self._private = None
                     self._private = None
                     self._extreme_private = None
-                
+
                 def bar(self):
                     # testing
                     return self.some_Invalid_NaMe
