@@ -1,11 +1,14 @@
+from __future__ import annotations
+
 import logging
 from typing import Any, Collection, Iterable, Mapping
-from __future__ import annotations
+
 from bellshadebot.constant import Label
 from bellshadebot.utils import File
 
-IGNORE_FILES_FOR_TYPELABEL: set[str] = {'directory.md'}
+IGNORE_FILES_FOR_TYPELABEL: set[str] = {"directory.md"}
 logger = logging.getLogger(__package__)
+
 
 class BaseFilesParser:
     pr_labels: list[str]
@@ -13,7 +16,9 @@ class BaseFilesParser:
     DOCS_EXTENSION: Collection[str] = ()
     ACCEPTED_EXTENSION: Collection[str] = ()
 
-    def __init__(self, pr_files: Iterable[File], pull_request: Mapping[str, Any]) -> None:
+    def __init__(
+        self, pr_files: Iterable[File], pull_request: Mapping[str, Any]
+    ) -> None:
         self.pr = pull_request
         self.pr_files = pr_files
         self.pr_labels = [label["name"] for label in pull_request["labels"]]
@@ -35,7 +40,7 @@ class BaseFilesParser:
         invalid_files = ", ".join(invalid_filepath)
         if invalid_files:
             logger.info("invalid file(s) [%s]: %s", invalid_files, sle.pr_html_url)
-        
+
         return invalid_files
 
     def type_label(self) -> str:
@@ -47,5 +52,5 @@ class BaseFilesParser:
                     break
             elif file.status != "added":
                 label = Label.ENHANCEMENT
-        
+
         return label if label not in self.pr_labels else ""

@@ -1,5 +1,6 @@
 from enum import Enum
 from typing import Collection, Optional
+
 import libcst as cst
 import libcst.matchers as m
 from fixit import CstContext, CstLintRule

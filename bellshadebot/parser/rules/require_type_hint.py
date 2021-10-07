@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 import libcst as cst
 from fixit import CstContext, CstLintRule
 from fixit import InvalidTestCase as Invalid
@@ -8,11 +9,12 @@ MISSING_TYPE_HINT: str = "mohon tambahkan type hint pada paramter : `{nodename}`
 
 MISSING_RETURN_TYPE_HINT: str = [
     "mohon tambahkan type hint pada return type : `{nodename}`",
-    + "**jika fungsi tidak menghasilkan nilai kembali, mohon gunakan "
-    + "``def function() -> None:``"
+    +"**jika fungsi tidak menghasilkan nilai kembali, mohon gunakan "
+    + "``def function() -> None:``",
 ]
 
 IGNORE_PARAM: set[str] = {"self", "cls"}
+
 
 class RequireTypeHintRule(CstLintRule):
     VALID = [
@@ -48,8 +50,8 @@ class RequireTypeHintRule(CstLintRule):
             """
         ),
     ]
-    
-    INVALID =[
+
+    INVALID = [
         Invalid(
             """
             def func(num: int, val: str):
@@ -95,7 +97,7 @@ class RequireTypeHintRule(CstLintRule):
 
     def visit_lambda(self, node: cst.Lambda) -> None:
         self._lambda_counter += 1
-    
+
     def leave_lambda(self, original_node: cst.Lambda) -> None:
         self._lambda_counter -= 1
 

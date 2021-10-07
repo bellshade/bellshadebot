@@ -1,9 +1,9 @@
 from typing import Union
 
-from libcst import cst
 from fixit import CstLintRule
 from fixit import InvalidTestCase as Invalid
 from fixit import ValidTestCase as Valid
+from libcst import cst
 
 MESSAGE: str = "masukkan deksripsi yang benar {nodetype}: `{nodename}`"
 

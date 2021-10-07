@@ -1,7 +1,9 @@
+from __future__ import annotations
+
 import logging
 import os
-from __future__ import annotations
 from typing import Any, Mapping, MutableMapping, Optional
+
 from aiohttp import ClientResponse
 from cachetools import TTLCache
 from gidgethub import apps
