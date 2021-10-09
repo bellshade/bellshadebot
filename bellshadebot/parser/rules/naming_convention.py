@@ -72,6 +72,32 @@ class NamingConventionRule(CstLintRule):
         ),
     ]
 
+    INVALID = [
+        Invalid("type_Hint_Var: int = 5"),
+        Invalid("hellO = 'world'"),
+        Invalid("ranDom_UpPercAse = 'testing'"),
+        Invalid("for RandomCaps in range(5): pass"),
+        Invalid("class _Invalid_PrivateClass: pass"),
+        Invalid("class _invalidPrivateClass: pass"),
+        Invalid("class lowerPascalCase: pass"),
+        Invalid("class all_lower_case: pass"),
+        Invalid("def oneWordInvalid(): pass"),
+        Invalid("def Pascal_Case(): pass"),
+        Invalid("valid = another_valid = Invalid = 5"),
+        Invalid("(waLRus := 'operator')"),
+        Invalid("def func(invalidParam, valid_param): pass"),
+        Invalid("multiple, inValid, assignments = 1, 2, 3"),
+        Invalid("[inside, list, inValid] = Invalid, 2, 3"),
+        Invalid(
+            """
+            class Spam:
+                def __init__(self, foo, bar):
+                    self.foo = foo
+                    self._Bar = bar
+            """
+        ),
+    ]
+
     def __init__(self, context: CstContext) -> None:
         super().__init__(context)
         self._assigntarget_counter: int = 0

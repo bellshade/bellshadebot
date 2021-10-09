@@ -45,7 +45,7 @@ PR_REVIEW_BODY = """\
     <summary><b><em>lihat link yang relevan dibawah ini :arrow_down:</em></b></summary>
     <br>
     <blockquote>
-    
+
     ## :link: link yang relevan
     ### repository
     - [peraturan kontribusi]\

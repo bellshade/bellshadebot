@@ -26,11 +26,11 @@ class RequireDoctestRule(CstLintRule):
             ```
             def foo():
                 pass
-            
+
             class Bar:
                 def baz(self):
                     pass
-            
+
             def bar():
                 pass
             """
@@ -39,7 +39,7 @@ class RequireDoctestRule(CstLintRule):
             """
             def foo():
                 pass
-            
+
             def bar():
                 pass
 
@@ -50,7 +50,7 @@ class RequireDoctestRule(CstLintRule):
             class Baz:
                 def baz(self):
                     pass
-            
+
             def spam():
                 pass
             """
@@ -59,7 +59,7 @@ class RequireDoctestRule(CstLintRule):
             """
             def foo():
                 pass
-            
+
             def bar():
                 pass
 
@@ -72,7 +72,7 @@ class RequireDoctestRule(CstLintRule):
             class Baz:
                 def baz(self):
                     pass
-            
+
             def spam():
                 pass
             """
@@ -85,10 +85,10 @@ class RequireDoctestRule(CstLintRule):
             class Baz:
                 def baz(self):
                     pass
-            
+
             def bar():
                 pass
-            
+
             # contains test class
             class TestSpam:
                 def test_spam(self):
@@ -113,7 +113,7 @@ class RequireDoctestRule(CstLintRule):
                 '''
                 def foo(self):
                     pass
-                
+
                 def spam(self):
                     pass
 
@@ -135,7 +135,7 @@ class RequireDoctestRule(CstLintRule):
             class Bar:
                 def __init__(self):
                     pass
-                
+
                 def bar(self):
                     '''
                     >>> bar()
@@ -175,7 +175,7 @@ class RequireDoctestRule(CstLintRule):
                 >>> bar()
                 '''
                 pass
-            
+
             class Spam:
                 '''
                 >>> Spam()

@@ -6,8 +6,6 @@ from typing import Any, Collection, Union
 
 from fixit.common.report import BaseLintRuleReport
 from libcst import ParserSyntaxError
-from libcst._nodes.expression import BaseAssignTargetExpression
-from libcst._nodes.whitespace import Comment
 
 from bellshadebot.constant import Label
 
@@ -36,7 +34,7 @@ class PUllRequestReviewRecord:
     _violated_ruoles: set[str] = field(default_factory=set, init=False, repr=False)
 
     def add_comments(
-        self, reports: Collection[BaseAssignTargetExpression], filepath: str
+        self, reports: Collection[BaseLintRuleReport], filepath: str
     ) -> None:
         for report in reports:
             self._violated_ruoles.add(report.code)

@@ -176,7 +176,7 @@ async def add_reaction(
     gh: GitHubAPI, *, reaction: str, comment: Mapping[str, Any]
 ) -> None:
     await gh.post(
-        comment["url"] + f"/reactions",
+        comment["url"] + "/reactions",
         data={"content": reaction},
         accept="application/vnd.github.squirrel-girl-preview+json",
         oauth_token=await gh.access_token,
