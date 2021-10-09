@@ -140,7 +140,7 @@ async def check_pr_files(
 
     if parser.labels_to_remove:
         await utils.remove_label_from_pr_or_issue(
-            gh, label=pareser.labels_to_remove, pr_or_issue=pull_request
+            gh, label=parser.labels_to_remove, pr_or_issue=pull_request
         )
 
     if ignore_modified:
@@ -161,7 +161,7 @@ async def check_ci_ready_for_review_pr(
     event: Event, gh: GitHubAPI, *args: Any, **kwargs: Any
 ) -> None:
 
-    from bellshadebot.event.check_run import acheck_ci_status_and_label
+    from bellshadebot.event.check_run import check_ci_status_and_label
 
     await check_ci_status_and_label(event, gh, *args, **kwargs)
 
