@@ -47,11 +47,11 @@ async def main(request: Request) -> Response:
                 event.data["installation"]["id"],
                 session,
                 "arfyslowy/bellshadebot",
-                cache = cache
+                cache=cache,
             )
             await asyncio.sleep(1)
             await main_router.dispatch(event, gh)
-            
+
         if gh.rate_limit is not None:  # pragma: no cover
             logger.info(
                 "ratelimit=%s, time_remaining=%s",
@@ -61,7 +61,8 @@ async def main(request: Request) -> Response:
         return Response(status=200)
     except Exception as err:
         logger.exception(err)
-        return Response(status=500, text = str(err))
+        return Response(status=500, text=str(err))
+
 
 if __name__ == "__main__":
     app = Application()

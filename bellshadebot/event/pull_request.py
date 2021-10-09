@@ -10,11 +10,14 @@ from gidgethub.sansio import Event
 
 from bellshadebot import utils
 from bellshadebot.api import GitHubAPI
-from bellshadebot.constant import (CHECKBOX_NOT_TICKED_COMMENT,
-                                   EMPTY_PR_BODY_COMMENT,
-                                   INVALID_EXTENSION_COMMENT,
-                                   MAX_PR_REACHED_COMMENT, PR_REVIEW_COMMENT,
-                                   Label)
+from bellshadebot.constant import (
+    CHECKBOX_NOT_TICKED_COMMENT,
+    EMPTY_PR_BODY_COMMENT,
+    INVALID_EXTENSION_COMMENT,
+    MAX_PR_REACHED_COMMENT,
+    PR_REVIEW_COMMENT,
+    Label,
+)
 from bellshadebot.parser import PythonParser
 
 MAX_PR_PER_USER = 3
